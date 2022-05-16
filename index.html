@@ -35,7 +35,7 @@
         </div>
       </section>
 
-      <section id="controls">
+      <section id="controls" v-if="!winner">
         <button @click="attack">ATTACK</button>
         <button 
           @click="specialAttack"

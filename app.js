@@ -10,6 +10,7 @@ Vue.createApp({
       playerHP: 100,
       monsterHP: 100,
       round: 1,
+      winner: null,
     };
   },
 
@@ -54,4 +55,28 @@ Vue.createApp({
       };
     },
   },
+
+  watch: {
+    playerHP(value) {
+      if (value <= 0) {
+        this.winner = "Monster";
+      }
+    },
+
+    monsterHP(value) {
+      if (value <= 0) {
+        this.winner = "Player";
+      }
+    },
+
+    winner(value) {
+      if (value) {
+        alert(value + " wins!");
+        this.playerHP = 100;
+        this.monsterHP = 100;
+        this.round = 1;
+        this.winner = null;
+      }
+    }
+  }
 }).mount("#game");
