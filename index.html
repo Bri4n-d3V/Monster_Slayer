@@ -17,6 +17,10 @@
       <h1>Monster Slayer</h1>
     </header>
     <div id="game">
+      <section>
+        Round: {{round}}
+      </section>
+
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
@@ -33,7 +37,12 @@
 
       <section id="controls">
         <button @click="attack">ATTACK</button>
-        <button>SPECIAL ATTACK</button>
+        <button 
+          @click="specialAttack"
+          :disabled="(round % 3 !== 0)"
+        >
+          SPECIAL ATTACK
+      </button>
         <button>HEAL</button>
         <button>SURRENDER</button>
       </section>
