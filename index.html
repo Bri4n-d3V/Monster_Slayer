@@ -17,8 +17,12 @@
       <h1>Monster Slayer</h1>
     </header>
     <div id="game">
-      <section id="round">
-       <h2>Round: {{round}}</h2>
+      <section id="info">
+        <h2 id="round">Round: {{round}}</h2>
+        <div id="score">
+          <h2>Player score: {{playerScore}}</h2>
+          <h2>Monster score: {{monsterScore}}</h2>
+        </div>
       </section>
 
       <section id="monster" class="container">
@@ -55,7 +59,6 @@
       </button>
         <button 
           @click="heal"
-          :disabled="(round % 3 !== 0)"
         >
           HEAL
         </button>
@@ -64,7 +67,11 @@
 
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="log in battleLog">
+            {{ log.who }} {{ log.what }} {{ log.value }}
+          </li>
+        </ul>
       </section>
     </div>
   </body>

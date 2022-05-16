@@ -12,36 +12,66 @@ Vue.createApp({
       monsterHP: 100,
       round: 1,
       winner: null,
+      playerScore: 0,
+      monsterScore: 0,
+      battleLog: [],
     };
   },
 
   methods: {
     attack() {
-      this.monsterHP -= randomNumber(5, 10);
+      const action = randomNumber(5, 13);
+      this.monsterHP -= action;
+      this.addLog('player', 'attack', action);
       this.receiveDamage();
-      this.round++;
     },
-
+    
     receiveDamage() {
-      this.playerHP -= randomNumber(8, 13);
+      const action = randomNumber(8, 13);
+      this.playerHP -= action;
+      this.addLog('monster', 'attack', action);
+      this.round++;
     },
 
     specialAttack() {
-      this.monsterHP -= randomNumber(10, 20);
+      const action = randomNumber(10, 20);
+      this.monsterHP -= action;
+      this.addLog('player', 'specia-attack', action);
       this.receiveDamage();
-      this.round++;
     },
 
     heal() {
-      this.playerHP += randomNumber(15, 25);
-      if(this.playerHP >= 100) return this.playerHP = 100;
+      const action = randomNumber(8, 13);
+      this.playerHP += action;
+
+      if (this.playerHP >= 100) {
+        this.playerHP = 100;
+      }
+
+      this.addLog('player', 'heal', action);
       this.receiveDamage();
-      this.round++;
     },
 
     surrender() {
+      this.battleLog.unshift("-----Player Surrendered-----");
       this.winner = "Monster";
-    }
+      this.monsterScore++;
+    },
+
+    addLog(who, what, value) {
+      this.battleLog.unshift({
+        who,
+        what,
+        value,
+      });
+    },
+
+    startGame() {
+      this.playerHP = 100;
+      this.monsterHP = 100;
+      this.round = 1;
+      this.winner = null;
+    },
   },
 
   computed: {
@@ -68,25 +98,38 @@ Vue.createApp({
 
   watch: {
     playerHP(value) {
-      if (value <= 0) {
+      if (value <= 0 && this.monsterHP <= 0) {
+        this.winner = 'draw';
+      }
+      
+      else if (value <= 0) {
         this.winner = "Monster";
+        this.monsterScore++;
       }
     },
 
     monsterHP(value) {
-      if (value <= 0) {
+      if (value <= 0 && this.playerHP <= 0) {
+        this.winner = 'draw';
+      }
+
+      else if (value <= 0) {
         this.winner = "Player";
+        this.playerScore++;
       }
     },
 
     winner(value) {
-      if (value) {
-        alert(value + " wins!");
-        this.playerHP = 100;
-        this.monsterHP = 100;
-        this.round = 1;
-        this.winner = null;
+      if (value === 'draw') {
+        alert(`It's a draw!`);
+        console.log('a');
+        return this.startGame();
       }
-    }
-  }
+      else if (value === 'Player' || value === 'Monster') {
+        alert(value + " wins!");
+        console.log('b');
+        return this.startGame();
+      }
+    },
+  },
 }).mount("#game");

@@ -122,3 +122,15 @@ button:disabled {
 .log--heal {
   color: green;
 }
+
+#info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#round{
+}
+
+#score{
+}
