@@ -48,7 +48,8 @@ section {
 }
 
 #monster h2,
-#player h2 {
+#player h2,
+#round h2 {
   margin: 0.25rem;
 }
 
