@@ -24,14 +24,24 @@
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="monsterHPstyle"></div>
+          <div 
+            class="healthbar__value"
+            :style="monsterHPstyle"
+          >
+          {{monsterHP}} %
+        </div>
         </div>
       </section>
 
       <section id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value" :style="playerHPstyle"></div>
+          <div 
+            class="healthbar__value"
+            :style="playerHPstyle"
+          >
+          {{playerHP}} %
+        </div> 
         </div>
       </section>
 
@@ -43,7 +53,12 @@
         >
           SPECIAL ATTACK
       </button>
-        <button>HEAL</button>
+        <button 
+          @click="heal"
+          :disabled="(round % 3 !== 0)"
+        >
+          HEAL
+        </button>
         <button>SURRENDER</button>
       </section>
 

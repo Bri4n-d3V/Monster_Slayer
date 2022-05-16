@@ -4,6 +4,7 @@ function randomNumber(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
 Vue.createApp({
   data() {
     return {
@@ -19,7 +20,6 @@ Vue.createApp({
       this.monsterHP -= randomNumber(5, 10);
       this.receiveDamage();
       this.round++;
-      console.log("round", this.round);
     },
 
     receiveDamage() {
@@ -30,8 +30,14 @@ Vue.createApp({
       this.monsterHP -= randomNumber(10, 20);
       this.receiveDamage();
       this.round++;
-      console.log("round", this.round);
     },
+
+    heal() {
+      this.playerHP += randomNumber(15, 25);
+      if(this.playerHP >= 100) return this.playerHP = 100;
+      this.receiveDamage();
+      this.round++;
+    }
   },
 
   computed: {
