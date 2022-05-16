@@ -105,6 +105,7 @@ button:disabled {
 
 #log li {
   margin: 0.5rem 0;
+  font-size: large
 }
 
 .log--player {
@@ -117,6 +118,12 @@ button:disabled {
 
 .log--damage {
   color: red;
+}
+
+.log--special-damage {
+  background-color: red;
+  padding-inline: 0.3rem;
+  color: white;
 }
 
 .log--heal {

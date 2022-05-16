@@ -22,21 +22,21 @@ Vue.createApp({
     attack() {
       const action = randomNumber(5, 13);
       this.monsterHP -= action;
-      this.addLog('player', 'attack', action);
+      this.addLog('Player', 'attack', action);
       this.receiveDamage();
     },
     
     receiveDamage() {
       const action = randomNumber(8, 13);
       this.playerHP -= action;
-      this.addLog('monster', 'attack', action);
+      this.addLog('Monster', 'attack', action);
       this.round++;
     },
 
     specialAttack() {
       const action = randomNumber(10, 20);
       this.monsterHP -= action;
-      this.addLog('player', 'specia-attack', action);
+      this.addLog('Player', 'specialAttack', action);
       this.receiveDamage();
     },
 
@@ -48,12 +48,12 @@ Vue.createApp({
         this.playerHP = 100;
       }
 
-      this.addLog('player', 'heal', action);
+      this.addLog('Player', 'heal', action);
       this.receiveDamage();
     },
 
     surrender() {
-      this.battleLog.unshift("-----Player Surrendered-----");
+      this.addLog('Player', 'surrender', null);
       this.winner = "Monster";
       this.monsterScore++;
     },

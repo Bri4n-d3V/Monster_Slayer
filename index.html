@@ -69,7 +69,42 @@
         <h2>Battle Log</h2>
         <ul>
           <li v-for="log in battleLog">
-            {{ log.who }} {{ log.what }} {{ log.value }}
+            <span
+            :class="{'log--player': log.who ==='Player',
+            'log--monster': log.who ==='Monster'}"
+            >
+              {{log.who}}
+            </span>
+
+            <span 
+              v-if="log.what === 'attack'"
+            >
+              dealt 
+                <span v-html="log.value" class="log--damage"></span>
+              attack damage.
+            </span>
+
+            <span 
+              v-else-if="log.what === 'specialAttack'"
+            >
+              dealt 
+              <span v-html="log.value" class="log--special-damage"></span>
+              special attack damage!
+            </span>
+
+            <span 
+              v-else-if="log.what === 'heal'"
+            >
+              healed
+              <span v-html="log.value" class="log--heal"></span>
+              life points.
+            </span>
+
+            <span 
+              v-else="log.what === 'surrender'"
+            >
+              has surrendered...
+            </span>
           </li>
         </ul>
       </section>
