@@ -37,6 +37,10 @@ Vue.createApp({
       if(this.playerHP >= 100) return this.playerHP = 100;
       this.receiveDamage();
       this.round++;
+    },
+
+    surrender() {
+      this.winner = "Monster";
     }
   },
 
