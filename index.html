@@ -17,27 +17,96 @@
       <h1>Monster Slayer</h1>
     </header>
     <div id="game">
+      <section id="info">
+        <h2 id="round">Round: {{round}}</h2>
+        <div id="score">
+          <h2>Player score: {{playerScore}}</h2>
+          <h2>Monster score: {{monsterScore}}</h2>
+        </div>
+      </section>
+
       <section id="monster" class="container">
         <h2>Monster Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div 
+            class="healthbar__value"
+            :style="monsterHPstyle"
+          >
+          {{monsterHP}} %
+        </div>
         </div>
       </section>
+
       <section id="player" class="container">
         <h2>Your Health</h2>
         <div class="healthbar">
-          <div class="healthbar__value"></div>
+          <div 
+            class="healthbar__value"
+            :style="playerHPstyle"
+          >
+          {{playerHP}} %
+        </div> 
         </div>
       </section>
-      <section id="controls">
-        <button>ATTACK</button>
-        <button>SPECIAL ATTACK</button>
-        <button>HEAL</button>
-        <button>SURRENDER</button>
+
+      <section id="controls" v-if="!winner">
+        <button @click="attack">ATTACK</button>
+        <button 
+          @click="specialAttack"
+          :disabled="(round % 3 !== 0)"
+        >
+          SPECIAL ATTACK
+      </button>
+        <button 
+          @click="heal"
+        >
+          HEAL
+        </button>
+        <button @click="surrender">SURRENDER</button>
       </section>
+
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="log in battleLog">
+            <span
+            :class="{'log--player': log.who ==='Player',
+            'log--monster': log.who ==='Monster'}"
+            >
+              {{log.who}}
+            </span>
+
+            <span 
+              v-if="log.what === 'attack'"
+            >
+              dealt 
+                <span v-html="log.value" class="log--damage"></span>
+              attack damage.
+            </span>
+
+            <span 
+              v-else-if="log.what === 'specialAttack'"
+            >
+              dealt 
+              <span v-html="log.value" class="log--special-damage"></span>
+              special attack damage!
+            </span>
+
+            <span 
+              v-else-if="log.what === 'heal'"
+            >
+              healed
+              <span v-html="log.value" class="log--heal"></span>
+              life points.
+            </span>
+
+            <span 
+              v-else="log.what === 'surrender'"
+            >
+              has surrendered...
+            </span>
+          </li>
+        </ul>
       </section>
     </div>
   </body>

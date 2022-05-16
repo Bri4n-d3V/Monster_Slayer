@@ -16,7 +16,6 @@ header {
   background-color: #880017;
   color: white;
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 section {
@@ -37,18 +36,22 @@ section {
   background-color: #00a876;
   width: 100%;
   height: 100%;
+  font-size: 1.5rem;
+  text-align: right;
+  color: white;
+  padding-right: 1rem;
 }
 
 .container {
   text-align: center;
   padding: 0.5rem;
-  margin: 1rem auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 12px;
 }
 
 #monster h2,
-#player h2 {
+#player h2,
+#round h2 {
   margin: 0.25rem;
 }
 
@@ -96,10 +99,14 @@ button:disabled {
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 200px;
+  overflow: auto
 }
 
 #log li {
   margin: 0.5rem 0;
+  font-size: large
 }
 
 .log--player {
@@ -114,6 +121,18 @@ button:disabled {
   color: red;
 }
 
+.log--special-damage {
+  background-color: red;
+  padding-inline: 0.3rem;
+  color: white;
+}
+
 .log--heal {
   color: green;
+}
+
+#info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
